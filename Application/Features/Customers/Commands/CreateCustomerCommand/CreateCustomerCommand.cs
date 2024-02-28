@@ -1,6 +1,8 @@
 ﻿using Application.Wrappers;
 using MediatR;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Application.Features.Customers.Commands.CreateCustomerCommand
 {
@@ -12,5 +14,13 @@ namespace Application.Features.Customers.Commands.CreateCustomerCommand
         public string Telefono { get; set; }
         public string Email { get; set; }
         public string Direccion { get; set; }
+    }
+
+    public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Response<int>>
+    {
+        public async Task<Response<int>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
