@@ -1,11 +1,9 @@
 ﻿using Application.Features.Customers.Commands.CreateCustomerCommand;
 using Application.Features.Customers.Commands.DeleteCustomerCommand;
 using Application.Features.Customers.Commands.UpdateCustomerCommand;
-using Microsoft.AspNetCore.Http;
+using Application.Features.Customers.Queries.GetAllCustomers;
+using Application.Features.Customers.Queries.GetCustomerById;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers.v1
@@ -13,6 +11,24 @@ namespace WebAPI.Controllers.v1
     [ApiVersion("1.0")]
     public class CustomerController : BaseApiController
     {
+        [HttpGet()]
+        public async Task<IActionResult> Get([FromQuery] GetAllCustomersParameters filter)
+        {
+            return Ok(await Mediator.Send(new GetAllCustomerQuery 
+            {
+                PageNumber = filter.PageNumber, 
+                PageSize = filter.PageSize, 
+                Nombre = filter.Nombre, 
+                Apellido = filter.Apellido 
+            }));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            return Ok(await Mediator.Send(new GetCustomerByIdQuery { Id = id }));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(CreateCustomerCommand command)
         {
