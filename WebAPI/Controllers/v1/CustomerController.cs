@@ -3,6 +3,7 @@ using Application.Features.Customers.Commands.DeleteCustomerCommand;
 using Application.Features.Customers.Commands.UpdateCustomerCommand;
 using Application.Features.Customers.Queries.GetAllCustomers;
 using Application.Features.Customers.Queries.GetCustomerById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -30,12 +31,14 @@ namespace WebAPI.Controllers.v1
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post(CreateCustomerCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Put(int id, UpdateCustomerCommand command)
         {
             if (id != command.Id)
@@ -45,6 +48,7 @@ namespace WebAPI.Controllers.v1
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteCustomerCommand { Id = id }));
