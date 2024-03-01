@@ -10,7 +10,7 @@
 
 -  Paginado en la operación de lectura
 
-- Otros: FluentValidation,  AutoMapper, ArdaisSpecification.
+- Otros: FluentValidation,  AutoMapper, ArdailsSpecification.
 ## Account
 
 #### Autenticar Usuario
@@ -24,8 +24,8 @@ Post 	/api/Account/authenticate
 }
 
 200  "Message": "Usuario Autenticado [nombreUsuario]"
-400 "Message": "No hay una cuenta registrada con el email:[email]",
- 	   "Message": "Las credenciales del usuario no son validas. user@mail.com"
+400  "Message": "No hay una cuenta registrada con el email:[email]",
+400  "Message": "Las credenciales del usuario no son validas. user@mail.com"
 }
 ```
 
@@ -43,9 +43,9 @@ Post 	/api/Account/register
   "confirmPassword": "string"
 }
 
-200  "message": "Usuario Autenticado [nombreUsuario]"
-400 "Message": "Se han producido uno o más errores de validación",
-	   "Message": "El email user@mail.com ya fue registrado previamente.",
+200  "Message": "Usuario Autenticado [nombreUsuario]"
+400  "Message": "Se han producido uno o más errores de validación",
+400  "Message": "El email user@mail.com ya fue registrado previamente.",
 }
 ```
 
@@ -102,7 +102,9 @@ Responses:
   "direccion": "string"
 }
 
+200 "Success": true
 401 "Message": "Usted no esta autorizado"
+404 "Message": "Registro no encontrado con el id 1"
 ```
 
 #### Crear Cliente 
@@ -118,7 +120,10 @@ Post 	/api/v{version}/Customer
   "direccion": "string"
 }
 
+200 "succeded": true,
+400 "Message": "Se han producido uno o más errores de validación"
 401 "Message": "Usted no esta autorizado"
+
 ```
 
 #### Actualizar Cliente 
@@ -136,6 +141,7 @@ Parameter: id*, version*
   "direccion": "string"
 }
 
+200 "Succeded": true
 401 "Message": "Usted no esta autorizado"
 ```
 
@@ -145,7 +151,9 @@ Delete 	/api/v{version}/Customer/{id}
 
 Parameter: id*, version*
 
+200 "Succeded": true
 401 "Message": "Usted no esta autorizado"
+403 "Message": "Usted no tiene permisos sobre este recurso"
 ```
 ---- 
 ### Image
